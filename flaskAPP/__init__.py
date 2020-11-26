@@ -30,4 +30,7 @@ def create_app(test_config=None):
     from . import nav
     app.register_blueprint(nav.bp)
 
+    from . import colorHarm
+    app.register_blueprint(colorHarm.bp)
+
     return app
