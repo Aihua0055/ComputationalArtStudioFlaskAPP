@@ -7,7 +7,9 @@ from flask import (
     url_for
 )
 
-bp = Blueprint('nav',__name__,url_prefix='/nav')
+import requests
+
+bp = Blueprint('nav',__name__,url_prefix='/')
 
 @bp.route('/home')
 def home():
@@ -43,3 +45,54 @@ def home():
     }
 
     return render_template('nav/home.html',**kwargs)
+
+@bp.route("/colorharm")
+def colorharm():
+    kwargs={
+        'title':'Color Harmonization',
+        'jumbotron':{
+            "header":"Color Harmonization",
+            "bg_image":"static/images/colorHarJ.png",
+            "text": "Add text"
+        }
+    }
+    return render_template('nav/colorharm.html',**kwargs)
+@bp.route("/styletransfer")
+def styletransfer():
+    kwargs={
+        'title':'Style Transfer',
+        'jumbotron':{
+            "header":"Style Transfer",
+            "bg_image":"static/images/styleTransfer.jpeg",
+            "text": "Add text"
+
+        }
+    }
+    return render_template('nav/styletransfer.html',**kwargs)
+
+@bp.route("/gallery")
+def gallery():
+    response = requests.get('https://restcountries.eu/rest/v2/all')
+    kwargs={
+        'title':'About',
+        'jumbotron':{
+            "header":"Computational Art Gallery",
+            "bg_image":"static/images/bg1450496.jpg",
+            "text": "Add text"
+
+        },
+        'recipes' : response.json()
+    }
+    return render_template('nav/gallery.html',**kwargs)
+
+@bp.route('/about')
+def about():
+    kwargs={
+        'title':'About',
+        'jumbotron':{
+            "header":"AI & Art",
+            "bg_image":"static/images/bg1450496.jpg",
+            "text": "Add text"
+        }
+    }
+    return render_template('nav/about.html',**kwargs)
